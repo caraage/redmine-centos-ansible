@@ -84,16 +84,55 @@
     repo=https://github.com/farend/redmine_theme_farend_basic.git
     dest={{ redmine_dir }}/public/themes/farend_basic
 
-- name: テーマをfarend_basicに切り替え
+- name: farend_bleuclairテーマのダウンロード
   become: yes
-  command:
-    bundle exec rails r 'Setting["ui_theme"]="farend_basic"'
-    chdir={{ redmine_dir }}
-  environment:
-    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
-    RAILS_ENV: production
-  when:
-    result_database_yml is changed
+  git:
+    repo=https://github.com/farend/redmine_theme_farend_bleuclair.git
+    dest={{ redmine_dir }}/public/themes/bleuclair
+
+- name: theme_gitmike テーマのダウンロード
+  become: yes
+  git:
+    repo=https://github.com/makotokw/redmine-theme-gitmike.git
+    dest={{ redmine_dir }}/public/themes/gitmike
+
+- name: flatly_light テーマのダウンロード
+  become: yes
+  git:
+    repo=https://github.com/Nitrino/flatly_light_redmine.git
+    dest={{ redmine_dir }}/public/themes/flatly_light_redmine
+
+- name: theme_purplemine2 テーマのダウンロード
+  become: yes
+  git:
+    repo={{ redmine_theme_purplemine2_repo }}
+    dest={{ redmine_dir }}/public/themes/PurpleMine2
+
+- name: theme_kodomo テーマのダウンロード
+  become: yes
+  git:
+    repo=https://github.com/akiko-pusu/redmine_theme_kodomo.git
+    dest={{ redmine_dir }}/public/themes/kodomo
+
+- name: flat_theme テーマのダウンロード
+  become: yes
+  git:
+    repo=https://github.com/ssaito/redmine-theme-flat.git
+    dest={{ redmine_dir }}/public/themes/redmine_flat
+
+- name: redmine_theme_minimalflat2 テーマのダウンロード
+  become: yes
+  get_url:
+    url: https://github.com/akabekobeko/redmine-theme-minimalflat2/releases/download/v1.5.0/minimalflat2-1.6.1.zip
+    dest: /tmp
+
+- name: redmine_theme_minimalflat2 テーマのディレクトリ設定
+  become: yes
+  file: path={{ redmine_dir }}/public/themes/minimalflat2 state=directory owner=root group=root mode=0755
+
+- name: redmine_theme_minimalflat2 テーマの解凍
+  become: yes
+  unarchive: src=/tmp/minimalflat2-1.5.0.zip dest={{ redmine_dir }}/public/themes
 
 - name: デフォルトの言語を日本語に変更
   become: yes
