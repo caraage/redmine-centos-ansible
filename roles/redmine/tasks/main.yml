@@ -105,7 +105,7 @@
 - name: theme_purplemine2 テーマのダウンロード
   become: yes
   git:
-    repo={{ redmine_theme_purplemine2_repo }}
+    repo=https://github.com/mrliptontea/PurpleMine2.git
     dest={{ redmine_dir }}/public/themes/PurpleMine2
 
 - name: theme_kodomo テーマのダウンロード
@@ -123,7 +123,7 @@
 - name: redmine_theme_minimalflat2 テーマのダウンロード
   become: yes
   get_url:
-    url: https://github.com/akabekobeko/redmine-theme-minimalflat2/releases/download/v1.5.0/minimalflat2-1.6.1.zip
+    url: https://github.com/akabekobeko/redmine-theme-minimalflat2/releases/download/v1.6.1/minimalflat2-1.6.1.zip
     dest: /tmp
 
 - name: redmine_theme_minimalflat2 テーマのディレクトリ設定
@@ -132,7 +132,7 @@
 
 - name: redmine_theme_minimalflat2 テーマの解凍
   become: yes
-  unarchive: src=/tmp/minimalflat2-1.5.0.zip dest={{ redmine_dir }}/public/themes
+  unarchive: src=/tmp/minimalflat2-1.6.1.zip dest={{ redmine_dir }}/public/themes
 
 - name: デフォルトの言語を日本語に変更
   become: yes
